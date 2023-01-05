@@ -1,0 +1,66 @@
+class Invention:
+        def __init__(self, item, person, year):
+            self.item = item
+            self.person = person
+            self.year = year
+
+        def __str__(self):
+            return str.format("Item: {}, Person: {}, Year: {}", self.item, self.person, self.year)
+
+    def mergeSort(arr, compare):
+        if len(arr) > 1:
+ 
+            # Create sub_array2 ← A[start..mid] and sub_array2 ← A[mid+1..end]
+            mid = len(arr)//2
+            sub_array1 = arr[:mid]
+            sub_array2 = arr[mid:]
+ 
+            # Sort the two halves
+            mergeSort(sub_array1, compare)
+            mergeSort(sub_array2, compare)
+ 
+            # Initial values for pointers that we use to keep track of where we are in each array
+            i = j = k = 0
+ 
+        # Until we reach the end of either start or end, pick larger among
+        # elements start and end and place them in the correct position in the sorted array
+            while i < len(sub_array1) and j < len(sub_array2):
+                if compare(sub_array1[i], sub_array2[j]):
+                    arr[k] = sub_array1[i]
+                    i += 1
+                else:
+                    arr[k] = sub_array2[j]
+                    j += 1
+                k += 1
+ 
+        # When all elements are traversed in either arr1 or arr2,
+        # pick up the remaining elements and put in sorted array
+            while i < len(sub_array1):
+                arr[k] = sub_array1[i]
+                i += 1
+                k += 1
+ 
+            while j < len(sub_array2):
+                arr[k] = sub_array2[j]
+                j += 1
+                k += 1
+
+    p1 = Invention("Steamboat", "Robert Fulton", 1807)
+    p2 = Invention("Airplane", "Wright Brothers", 1903)
+    p3 = Invention("Light Bulb", "Thomas Edison", 1879)
+    p4 = Invention("Television", "Philo Farnsworth", 1927)
+
+    arr = [p1, p2, p3, p4]
+
+    mergeSort(arr, lambda prod1, prod2: prod1.year < prod2.year)
+
+    print("Products sorted by year:")
+    for p in arr:
+        print(p)
+
+    print()
+
+    mergeSort(arr, lambda prod1, prod2: prod1.item < prod2.item)
+    print("Products sorted alphabetically:")
+    for p in arr:
+        print(p)
